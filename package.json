@@ -1,0 +1,16 @@
+{
+  "name": "unkle",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:back": "./src-rails/bin/rails server -p 1337",
+    "dev:front": "cd ./src-react && yarn dev",
+    "dev": "run-p dev:*",
+    "test:back": "./src-rails/bin/rails test",
+    "test:front": "cd ./src-react && yarn test",
+    "test": "run-p test:*"
+  },
+  "author": "Nicolas Dufreche",
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
