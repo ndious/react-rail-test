@@ -29,7 +29,7 @@ export const Tooltip = ({ identifier, height, width, children }) => {
         <div className="p-2">
           { children }
         </div>
-        <div ref={resizeRef} className="bg-dark position-absolute" style={{ bottom: 0, right: 0, height: 10, width: 10, pointer: 'cursor' }}>
+        <div ref={resizeRef} className="bg-dark position-absolute" style={{ bottom: 0, right: 0, height: 10, width: 10, cursor: 'nw-resize' }}>
         </div> 
       </div>
     </div>
