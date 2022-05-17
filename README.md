@@ -16,7 +16,11 @@ You need to follow this steps to perform the installation
 yarn install
 
 cd src-react && yarn install
-cd ../src-rails && bundle install
+
+cd ../src-rails 
+bundle install
+bin/rails db:migrate
+rake db:fixtures:load
 ```
 
 
