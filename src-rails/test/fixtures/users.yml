@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+clientOne:
+  email: user1@client.com
+  password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
+  role: <%= User.roles[:client] %>
+
+clientTwo:
+  email: user2@client.com
+  password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
+  role: <%= User.roles[:client] %>
+
+clientThree:
+  email: user3@client.com
+  password_digest:  <%= BCrypt::Password.create('password', cost: 4) %>
+  role: <%= User.roles[:client] %>
+
+admin:
+  email: admin@unkle.com
+  password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
+  role: <%= User.roles[:admin] %>

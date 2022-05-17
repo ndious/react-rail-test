@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one: 
+  identifier: all
+  description: Protect from everything
+
+two: 
+  identifier: steal
+  description: Protect uniquely against steal
+
+three:
+  identifier: fire
+  description: fire insurance
+
+four:
+  identifier: unpaid
+  description: Protection against unpaid rent
+
+five:
+  identifier: short rent
+  description: Be protected for short rent
