@@ -1,23 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 
-export const useConfigurableSize = (defaultWidth, defaultHeight) => {
-  const [ size, setSize ] = useState({ width: defaultWidth, height: defaultHeight })
-
-  const setWidth = (width) => setSize({ ...size, width })
-  const setHeight = (height) => setSize({ ...size, height })
-
-  return [ size, setWidth, setHeight ]
-}
-
-export const useConfigurablePosition = (defaultX, defaultY) => {
-  const [ position, setPosition ] = useState({ x: defaultX, y: defaultY })
-  
-  const setX = (x) => setPosition({ ...position, x })
-  const setY = (y) => setPosition({ ...position, y })
-
-  return [ position, setX, setY ]
-}
-
 const handleMouseMove = (isAvailable) => (handler) => (event) => {
   if (isAvailable) { return } 
 
