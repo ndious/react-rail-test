@@ -1,6 +1,6 @@
 class Contract < ApplicationRecord
-  has_many :contrat_clients
-  has_many :users, through: :contrat_clients
+  has_many :contract_clients
+  has_many :users, through: :contract_clients
 
   belongs_to :contract_option
 

@@ -3,8 +3,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  has_many :contrat_clients
-  has_many :contracts, through: :contrat_clients
+  has_many :contract_clients
+  has_many :contracts, through: :contract_clients
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
