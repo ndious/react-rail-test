@@ -1,4 +1,4 @@
 class ContractClient < ApplicationRecord
-  has_many :contracts
-  has_many :users
+  belongs_to :contract
+  belongs_to :user
 end
