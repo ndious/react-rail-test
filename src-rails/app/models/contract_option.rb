@@ -1,3 +1,4 @@
 class ContractOption < ApplicationRecord
-  has_many :contracts
+  belongs_to :contract
+  belongs_to :option
 end
