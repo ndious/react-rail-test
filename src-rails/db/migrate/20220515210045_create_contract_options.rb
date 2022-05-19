@@ -1,8 +1,8 @@
 class CreateContractOptions < ActiveRecord::Migration[7.0]
   def change
     create_table :contract_options do |t|
-      t.string :identifier
-      t.string :description
+      t.references :option, index: true, foreign_key: true
+      t.references :contract, index: true, foreign_key: true
 
       t.timestamps
     end

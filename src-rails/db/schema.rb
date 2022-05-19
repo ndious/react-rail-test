@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_15_211401) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_15_210045) do
   create_table "contract_clients", force: :cascade do |t|
     t.integer "user_id"
     t.integer "contract_id"
@@ -21,25 +21,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_211401) do
   end
 
   create_table "contract_options", force: :cascade do |t|
+    t.integer "option_id"
+    t.integer "contract_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_contract_options_on_contract_id"
+    t.index ["option_id"], name: "index_contract_options_on_option_id"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.string "number"
+    t.integer "status"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "options", force: :cascade do |t|
     t.string "identifier"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "contracts", force: :cascade do |t|
-    t.string "number"
-    t.string "status"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "contract_option_id", null: false
-    t.index ["contract_option_id"], name: "index_contracts_on_contract_option_id"
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string "role"
+    t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
@@ -49,5 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_15_211401) do
 
   add_foreign_key "contract_clients", "contracts"
   add_foreign_key "contract_clients", "users"
-  add_foreign_key "contracts", "contract_options"
+  add_foreign_key "contract_options", "contracts"
+  add_foreign_key "contract_options", "options"
 end
