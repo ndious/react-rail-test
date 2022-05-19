@@ -8,12 +8,9 @@ class ContractsController < ApplicationController
     else
       @contracts = Contract.join(:users).where(user_id: @current_user.id)
     end
-    
-    render json: @contracts, status: :ok
   end
 
   def show
-    render json: @contract, status: :ok
   end
 
   def create
