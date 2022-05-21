@@ -10,4 +10,10 @@ class Contract < ApplicationRecord
   validates :contract_options, presence: true
 
   enum status: [:pending, :active, :finished]
+
+  # Finds all contracts not deleted
+  scope :not_deleted, -> { where(deleted_at: nil) }
+
+  # Finds all contracts deleted
+  scope :deleted, -> { where.not(deleted_at: nil) }
 end

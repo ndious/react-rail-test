@@ -4,13 +4,19 @@ class ContractsController < ApplicationController
 
   def index
     if @current_user.admin?
-      @contracts = Contract.all
+      @contracts = Contract.not_deleted
     else
-      @contracts = Contract.join(:users).where(user_id: @current_user.id)
+      @contracts = @current_user.contracts.not_deleted
     end
   end
 
+  # Current user can only see his own contracts
   def show
+    unless @current_user.admin?
+      unless @current_user.contracts.include?(@contract)
+        render json: { errors: "You don't have access to this contract" }, status: :unauthorized
+      end
+    end
   end
 
   def create
