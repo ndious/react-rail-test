@@ -10,25 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_21_091124) do
-  create_table "contract_clients", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "contract_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contract_id"], name: "index_contract_clients_on_contract_id"
-    t.index ["user_id"], name: "index_contract_clients_on_user_id"
-  end
-
-  create_table "contract_options", force: :cascade do |t|
-    t.integer "option_id"
-    t.integer "contract_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contract_id"], name: "index_contract_options_on_contract_id"
-    t.index ["option_id"], name: "index_contract_options_on_option_id"
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2022_05_22_003344) do
   create_table "contracts", force: :cascade do |t|
     t.string "number"
     t.integer "status"
@@ -37,6 +19,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_091124) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+  end
+
+  create_table "contracts_options", id: false, force: :cascade do |t|
+    t.integer "contract_id", null: false
+    t.integer "option_id", null: false
+    t.index ["contract_id", "option_id"], name: "index_contracts_options_on_contract_id_and_option_id", unique: true
+  end
+
+  create_table "contracts_users", id: false, force: :cascade do |t|
+    t.integer "contract_id", null: false
+    t.integer "user_id", null: false
+    t.index ["contract_id", "user_id"], name: "index_contracts_users_on_contract_id_and_user_id", unique: true
   end
 
   create_table "options", force: :cascade do |t|
@@ -48,15 +42,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_091124) do
 
   create_table "users", force: :cascade do |t|
     t.integer "role"
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email", default: "", null: false
-    t.string "password_digest", default: "", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "contract_clients", "contracts"
-  add_foreign_key "contract_clients", "users"
-  add_foreign_key "contract_options", "contracts"
-  add_foreign_key "contract_options", "options"
 end

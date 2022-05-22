@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::API
   include JsonWebToken
 
-#  before_action :authenticate_request
+  before_action :default_format_json
 
-  private
+  before_action :authenticate_request
+
+  protected
     def user_is_admin
       if @current_user.client?
         render json: { error: "Unauthorized" }, status: :unauthorized
@@ -20,5 +22,9 @@ class ApplicationController < ActionController::API
         decoded = jwt_decode(header)
         @current_user = User.find(decoded[:user_id])
       end
+    end
+
+    def default_format_json
+      request.format = "json"
     end
 end

@@ -1,0 +1,37 @@
+contract_one:
+  start_at: <%= Time.now + 1.day %>
+  end_at: <%= Time.now + 1.year %>
+  users:
+    - client_two
+  options:
+    - option_one
+  status: <%= Contract.statuses[:pending] %>
+
+contract_two:
+  start_at: <%= Time.now - 3.day %>
+  end_at: <%= Time.now + 1.year %>
+  users:
+    - client_one
+    - client_two
+  options:
+    - option_two
+  status: <%= Contract.statuses[:active] %>
+
+contract_three:
+  start_at: <%= Time.now - 3.day %>
+  end_at: <%= Time.now + 1.year %>
+  users:
+    - client_one
+  options:
+    - option_three
+  status: <%= Contract.statuses[:active] %>
+
+contract_four:
+  start_at: <%= Time.now - 1.year %>
+  end_at: <%= Time.now - 1.day %>
+  users:
+    - client_one
+    - client_four
+  options:
+    - option_four
+  status: <%= Contract.statuses[:finished] %>

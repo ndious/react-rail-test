@@ -6,10 +6,12 @@ json.contract do
     json.id user.id
     json.email user.email
   end
+  json.options @contract.options do |option|
+    json.id option.id
+    json.identifier option.identifier
+  end
   json.start_at @contract.start_at
   json.end_at @contract.end_at
-  json.created_at @contract.created_at
-  json.updated_at @contract.updated_at
 end
 
 

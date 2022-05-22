@@ -1,22 +1,20 @@
 class Contract < ApplicationRecord
-  has_many :contract_clients
-  has_many :users, through: :contract_clients
 
-  has_many :contract_options
-  has_many :options, through: :contract_options
+  has_and_belongs_to_many :users
+  has_and_belongs_to_many :options
 
   validates :start_at, presence: true
 
-  validates :contract_clients, presence: true
+  validate :validate_uniqueness_of_user_options, on: :create
 
-  validates :contract_options, presence: true
+  validates_presence_of :users
+  validates_presence_of :options
 
   # On save update the status of the contract
   before_save :update_status
 
   # Checks if end_at is in the future and if is after start_at
-  validates :end_at, presence: true, if: -> { end_at.present? }
-  validate :end_at_after_start_at, if: -> { end_at > start_at }
+  validates :end_at, comparison: { greater_than: :start_at }, allow_nil: true
   
   enum status: [:pending, :active, :finished]
 
@@ -42,16 +40,25 @@ class Contract < ApplicationRecord
 
   private
     # Compute the status of the contract
-    # if start_at is in the future, the contract is pending
-    # if start_at is in the past, the contract is active
-    # if end_at is in the future, the contract is finished
     def update_status
-      if start_at > Time.now
-        self.status = :pending
-      elsif end_at > Time.now
+      if end_at? && end_at < Time.now
+        self.status = :finished
+      elsif start_at < Time.now
         self.status = :active
       else
-        self.status = :finished
+        self.status = :pending
+      end
+    end
+
+    def validate_uniqueness_of_user_options
+      users.each do |user|
+        user.contracts.not_deleted.each do |contract|
+          options.each do |option|
+            if contract.options.include? option
+              errors.add(:base, "User #{user.email} already has option #{option.identifier}")
+            end
+          end
+        end
       end
     end
 end
