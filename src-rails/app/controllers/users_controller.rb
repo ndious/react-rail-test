@@ -21,8 +21,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy if @user.present?
-    head :no_content
+    @user = User.find(params[:id])
+    @user.deleted_at = Time.now
+    @user.email = "#{@user.id}@delet.ed"
+    @user.password_digest = "deleted"
+    @user.save
+
+    render json: { message: "User deleted", id: @user.id }, status: :ok
   end
 
   private

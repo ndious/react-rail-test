@@ -27,9 +27,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "Admin can delete a user" do
-    delete "/users/#{@client_one_id}", headers: { Authorization: @token_admin }
+    client = users(:client_two)
+    client_email = client.email
+    delete "/users/#{client.id}", headers: { Authorization: @token_admin }
 
-    assert_response 204
+    client.reload
+
+    assert_response 200
+    assert_equal "deleted", client.password_digest
+    assert_not_nil client.deleted_at
+    assert_not_equal client_email, client.email
   end
 
   test "Client should not be able to find a user" do
