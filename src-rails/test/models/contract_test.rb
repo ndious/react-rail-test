@@ -12,6 +12,14 @@ class ContractTest < ActiveSupport::TestCase
     assert contract.valid?
   end
 
+  test "default values should correctly set" do
+    contract = Contract.new start_at: Time.now, users: @users, options: @options
+
+    contract.save
+    assert_not_nil contract.end_at
+    assert_equal contract.number, "C-%09d" % contract.id
+  end
+
   test "user cannot subscribe to the same option twice" do
     already_subscribed_options = @users.first.contracts.first.options
     contract = Contract.new start_at: Time.now, users: @users, options: already_subscribed_options
@@ -55,5 +63,4 @@ class ContractTest < ActiveSupport::TestCase
     assert_equal contracts.count, 1
     assert_equal contracts.first.id, contract.id
   end
-
 end

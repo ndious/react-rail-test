@@ -10,6 +10,8 @@ class Contract < ApplicationRecord
   validates_presence_of :users
   validates_presence_of :options
 
+  after_create_commit :set_default_values
+
   # On save update the status of the contract
   before_save :update_status
 
@@ -29,7 +31,7 @@ class Contract < ApplicationRecord
           -> { where('end_at < ? AND status != ?', Time.now, :finished) }
 
   # Finds all contracts with the start_date in the future and status not pending
-  scope :not_pending_need_to_be_activated,
+  scope :not_pending_need_to_be_updated,
           -> { where('start_at > ? AND status != ?', Time.now, :pending) }
 
   # Finds all contracts not deleted
@@ -60,5 +62,13 @@ class Contract < ApplicationRecord
           end
         end
       end
+    end
+
+    def set_default_values
+      self.number = "C-%09d" % id
+      unless end_at
+        self.end_at = start_at + 30.years
+      end
+      self.save
     end
 end
