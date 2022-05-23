@@ -98,8 +98,8 @@ body
 {
 	"email": "admin2@unkle.com",
 	"password": "password",
-  "valid_password": "password",
-  "role": "admin"
+	"valid_password": "password",
+	"role": "admin"
 }
 ```
 
@@ -122,9 +122,9 @@ body
 	"start_at": 1653345948,
 	"end_at": 1853345948,
 	"clients_id": [ 1 ],
-  "options_id": [ 1 ]
+	"options_id": [ 1 ]
 }
-``
+```
 
 Cancel a contract
 `post /contracts/:id/cancel`
@@ -133,6 +133,7 @@ body
 {
 	"end_at": 1853345948
 }
+```
 
 Show a Contract
 `get /contracts/:id`
