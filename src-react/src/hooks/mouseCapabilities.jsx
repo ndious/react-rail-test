@@ -39,7 +39,7 @@ const getValueBehindLimits = (value, { min, max }) => (value < min || value > ma
  *
  * @param component React.MutableRefObject
  */
-export const useResize = (component, defaultSize, heightLimit, widthLimit) => {
+export const useResizable = (defaultSize, heightLimits, widthLimits) => {
   const ref = useRef(null)
   const [ isResizing, setIsResizing ] = useState(false)
   const [ delta, setDelta ] = useState({ x: 0, y: 0 })
@@ -52,8 +52,8 @@ export const useResize = (component, defaultSize, heightLimit, widthLimit) => {
     const newHeight = size.height + (event.y - delta.y)
     const newWidth = size.width + (event.x - delta.x)
 
-    const height = getValueBehindLimits(newHeight, heightLimit)
-    const width = getValueBehindLimits(newWidth, widthLimit)
+    const height = getValueBehindLimits(newHeight, heightLimits)
+    const width = getValueBehindLimits(newWidth, widthLimits)
 
     setSize({
       height,
@@ -101,11 +101,11 @@ export const useResize = (component, defaultSize, heightLimit, widthLimit) => {
  * @param element React.MutableRefObject
  * @return [ React.MutableRefObject, number, number, boolean ]
  */
-export const useDragging = (element) => {
+export const useDraggable = (element, defaultPosition) => {
   const ref = useRef(null)
   const [ isDragging, setIsDragging ] = useState(false)
   const [ delta, setDelta ] = useState({ x: 0, y: 0 })
-  const [ position, setPosition ] = useState({ x: 0, y: 0 })
+  const [ position, setPosition ] = useState(defaultPosition)
 
   /**
    * When thw mouse move we need to recompute the element position by subtracting

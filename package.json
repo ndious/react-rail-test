@@ -4,10 +4,7 @@
   "scripts": {
     "dev:back": "./src-rails/bin/rails server -p 1337",
     "dev:front": "cd ./src-react && yarn dev",
-    "dev": "run-p dev:*",
-    "test:back": "./src-rails/bin/rails test",
-    "test:front": "cd ./src-react && yarn test",
-    "test": "run-p test:*"
+    "dev": "run-p dev:*"
   },
   "author": "Nicolas Dufreche",
   "dependencies": {
