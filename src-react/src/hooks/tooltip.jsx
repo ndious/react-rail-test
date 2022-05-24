@@ -12,9 +12,10 @@ const btnCloseStyle = {
 }
 
 export const useTooltip = (defaultPosistion, defaulSize, defaultLimits) => {
-  const dPosistion = { x: 0, y: 0, defaultPosistion }
+  const dPosistion = { x: 0, y: 0, ...defaultPosistion }
   const dSize = { height: 300, width: 300, ...defaulSize }
   const dLimits = { height: { min: 300, max: 600 }, width: { min: 300, max: 600 }, ...defaultLimits }
+  console.log({dPosistion, dSize})
   
   const tooltipRef = useRef(null)
   const [ isVisible, setIsvisible ] = useState(false)

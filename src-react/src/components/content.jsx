@@ -9,7 +9,7 @@ import '../assets/style/app.css'
 
 const Content = () => {
   const [ isLogged, setIsLogged ] = useState(false)
-  const [ Tooltip, togleTooltip ] = useTooltip()
+  const [ Tooltip, togleTooltip ] = useTooltip({ x: 200, y: 100 }, { width: 400 })
   const afterLoggin = () => {
     setIsLogged(true)
     togleTooltip()
